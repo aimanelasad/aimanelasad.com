@@ -29,6 +29,7 @@
 	var ids = articles.map(function (a) { return a.id; });
 	var baseTitle = document.title;
 
+	var isGerman = (document.documentElement.lang || '').indexOf('de') === 0;
 	var current = null;   // id of the open article, or null
 	var locked = false;   // true while a transition is running
 	var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -141,7 +142,16 @@
 
 	/* ---- reconcile view with URL ---------------------------------------- */
 
+	// Keep the language-switch links pointing at the same section in the other language.
+	var langLinks = document.querySelectorAll('.lang-switch a[data-base]');
+	function updateLangLinks() {
+		for (var i = 0; i < langLinks.length; i++) {
+			langLinks[i].setAttribute('href', langLinks[i].getAttribute('data-base') + window.location.hash);
+		}
+	}
+
 	function sync(initial) {
+		updateLangLinks();
 		if (locked) return;             // finish() will call sync() again
 		var target = targetFromHash();
 		if (target === current) return;
@@ -158,8 +168,8 @@
 		var btn = document.createElement('button');
 		btn.type = 'button';
 		btn.className = 'close';
-		btn.setAttribute('aria-label', 'Close');
-		btn.textContent = 'Close';
+		btn.setAttribute('aria-label', isGerman ? 'Schließen' : 'Close');
+		btn.textContent = isGerman ? 'Schließen' : 'Close';
 		btn.addEventListener('click', close);
 		article.insertBefore(btn, article.firstElementChild);
 	});

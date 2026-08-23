@@ -148,6 +148,33 @@ h3 { font-size: 1rem; margin: 2.5rem 0 0.75rem; }
 
 body:not(.is-preload) #bg { transform: scale(1); }
 
+/* ---------- Language switch -------------------------------------------- */
+
+.lang-switch {
+	position: fixed;
+	top: 1rem;
+	right: 1rem;
+	z-index: 10;
+	display: flex;
+	border: 1px solid var(--line-soft);
+	border-radius: 2rem;
+	overflow: hidden;
+	background: rgba(27, 31, 34, 0.7);
+}
+
+.lang-switch a {
+	display: block;
+	padding: 0.5rem 0.65rem;
+	line-height: 0;
+	border-bottom: 0;
+	opacity: 0.4;
+	transition: opacity var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+
+.lang-switch a.active { opacity: 1; }
+.lang-switch a:hover, .lang-switch a:focus-visible { opacity: 1; background: rgba(255, 255, 255, 0.08); }
+.lang-switch svg { width: 1.5rem; height: 1.05rem; border-radius: 2px; display: block; }
+
 /* ---------- Wrapper ----------------------------------------------------- */
 
 #wrapper {
