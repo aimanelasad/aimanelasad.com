@@ -177,8 +177,8 @@ body:not(.is-preload) #bg { transform: scale(1); }
 /* --- orbit: photo at the bottom-centre, nav links on a semicircle above it --- */
 
 :root {
-	--logo: 10rem;      /* photo diameter */
-	--orbit-r: 13rem;   /* radius of the nav arc, measured from the photo centre */
+	--logo: 14rem;      /* photo diameter */
+	--orbit-r: 15rem;   /* radius of the nav arc, measured from the photo centre */
 }
 
 #header .orbit {
@@ -557,7 +557,7 @@ body.is-article-visible #footer { opacity: 0; pointer-events: none; transition-d
 	#header .content .inner { padding: 2.5rem 1rem; }
 	#header h1 { font-size: 1.75rem; letter-spacing: 0.35rem; }
 	/* no room for the arc: photo on top, stacked nav below, then name */
-	:root { --logo: 8rem; }
+	:root { --logo: 10rem; }
 	#header .orbit { width: 100%; height: auto; display: flex; flex-direction: column; align-items: center; }
 	#header .orbit::before { display: none; }
 	#header .logo { position: static; transform: none; }

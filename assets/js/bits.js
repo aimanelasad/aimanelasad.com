@@ -9,6 +9,7 @@
 
 	var canvas = document.getElementById('bits');
 	if (!canvas || !canvas.getContext) return;
+	if (/[?&]nobits/.test(window.location.search)) return;   // debug switch: ?nobits disables the animation
 	var ctx = canvas.getContext('2d');
 
 	var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
