@@ -282,11 +282,18 @@ body:not(.is-preload) #bg { transform: scale(1); }
 	background: rgba(24, 26, 29, 0.55);
 	-webkit-backdrop-filter: blur(16px) saturate(150%);
 	backdrop-filter: blur(16px) saturate(150%);
-	transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+	transform: scale(1);
+	transform-origin: center;
+	transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease),
+	            transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);   /* slight overshoot, dock-like */
 }
 
-#header nav a:hover, #header nav a:focus-visible { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.25); color: var(--fg); text-decoration: none; }
-#header nav a:active { background: rgba(255, 255, 255, 0.2); }
+#header nav a:hover, #header nav a:focus-visible { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.28); color: var(--fg); text-decoration: none; transform: scale(1.14); }
+#header nav a:active { background: rgba(255, 255, 255, 0.2); transform: scale(1.06); }
+
+@media (prefers-reduced-motion: reduce) {
+	#header nav a:hover, #header nav a:focus-visible, #header nav a:active { transform: none; }
+}
 
 /* name + tagline below the orbit */
 #header .content {
