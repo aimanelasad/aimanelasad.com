@@ -56,6 +56,17 @@
 
 	var electrons = [].slice.call(figure.querySelectorAll('.electron'));
 
+	// only one description/pin at a time
+	var controllers = [];
+	function deactivateOthers(except) {
+		controllers.forEach(function (c) { if (c !== except) c.forceHide(); });
+	}
+	// clicking the empty part of the atom releases everything
+	svg.addEventListener('pointerdown', function (evt) {
+		if (evt.target.closest && evt.target.closest('.electron')) return;
+		deactivateOthers(null);
+	});
+
 	electrons.forEach(function (g, idx) {
 		var key = 'e' + (idx + 1);
 		var baseRate = idx === 1 ? -1 : 1;   // middle electron orbits the other way
@@ -77,12 +88,18 @@
 
 		/* ---- description show/hide ---- */
 		var pinned = false;
-		function show() { figure.classList.add('show-' + key); var a = getAnim(); if (a && !dragging) a.playbackRate = 0; }
+		function show() {
+			deactivateOthers(ctrl);
+			figure.classList.add('show-' + key);
+			var a = getAnim(); if (a && !dragging) a.playbackRate = 0;
+		}
 		function hide() {
 			if (pinned) return;
 			figure.classList.remove('show-' + key);
 			var a = getAnim(); if (a && !dragging && !decayRaf) a.playbackRate = baseRate;
 		}
+		var ctrl = { forceHide: function () { pinned = false; hide(); } };
+		controllers.push(ctrl);
 		g.addEventListener('pointerenter', function () { if (!dragging) show(); });
 		g.addEventListener('pointerleave', function () { hide(); });
 		g.addEventListener('focus', show);
@@ -125,9 +142,13 @@
 			dragging = false;
 			var a = getAnim(); if (!a) return;
 			if (!moved) {
-				// tap: pin/unpin the description (mainly for touch)
-				pinned = !pinned;
-				if (pinned) show(); else { figure.classList.remove('show-' + key); a.playbackRate = baseRate; }
+				if (evt.pointerType === 'touch') {
+					// tap: pin/unpin the description (touch has no hover)
+					pinned = !pinned;
+					if (pinned) show(); else { figure.classList.remove('show-' + key); a.playbackRate = baseRate; }
+				}
+				// mouse click without drag: keep normal hover behaviour (frozen while
+				// hovered, resumes on leave) — never pin
 				return;
 			}
 			var timing = a.effect.getTiming();
