@@ -399,7 +399,9 @@ blockquote cite { font-style: italic; }
 }
 .gallery figure { margin: 0; }
 .gallery img { width: 100%; height: auto; border-radius: 4px; display: block; }
-figcaption { font-size: 0.8rem; color: var(--fg-dim); margin-top: 0.4rem; }
+figcaption { font-size: 0.8rem; color: var(--fg-dim); margin-top: 0.4rem; line-height: 1.45; }
+.image.main figcaption { padding: 0 0.25rem; }
+cite { font-style: italic; }
 
 /* full-width image inside an article (e.g. About me) */
 .image.main {
