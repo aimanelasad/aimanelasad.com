@@ -460,6 +460,24 @@ cite { font-style: italic; }
 }
 
 .timeline li { margin: 0 0 1.25rem; }
+
+/* dashed detail bullets inside a timeline entry */
+.details {
+	list-style: none;
+	margin: 0.35rem 0 0;
+	padding: 0;
+}
+.details li {
+	position: relative;
+	padding-left: 1.15rem;
+	margin: 0 0 0.3rem;
+}
+.details li::before {
+	content: "\2013";           /* – */
+	position: absolute;
+	left: 0;
+	color: var(--fg-faint);
+}
 .timeline li strong { display: block; }
 .timeline li .where { display: block; color: var(--fg-dim); font-style: italic; margin-bottom: 0.25rem; }
 
