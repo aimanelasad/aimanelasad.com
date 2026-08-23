@@ -216,45 +216,29 @@
 			<!-- Projects -->
 			<article id="projects" aria-labelledby="projects-title" hidden>
 				<h2 class="major" id="projects-title">Projects</h2>
-				<p>A selection of projects from my research and my spare time.</p>
+				<p>Open-source projects from my spare time. All code is on <a href="https://github.com/aimanelasad" target="_blank" rel="noopener">GitHub<span class="sr-only"> (opens in a new tab)</span></a>.</p>
 
 				<div class="cards">
 					<section class="card">
-						<h3>AI-based release impact analysis</h3>
-						<p>
-							Doctoral research project: a data pipeline and LLM-based analysis that links vehicle software
-							release documentation to commissioning and production-quality data, so that the production impact
-							of an update can be estimated before rollout. Published in Procedia CIRP and as SAE papers.
-						</p>
-						<a href="#publications">Related publications</a>
-					</section>
-
-					<section class="card">
-						<h3>First Time Quality as an update-impact indicator</h3>
-						<p>
-							Uses First Time Quality (FTQ) in automotive production to quantify the impact of software
-							updates, turning an established quality metric into a measurable signal for release decisions.
-							Presented at the 2026 Stuttgart International Symposium.
-						</p>
-						<a href="https://doi.org/10.4271/2026-01-0786" target="_blank" rel="noopener">SAE 2026-01-0786<span class="sr-only"> (opens in a new tab)</span></a>
-					</section>
-
-					<section class="card">
-						<h3>Semantic clustering of production error messages</h3>
-						<p>
-							An LLM-based approach that groups free-text vehicle production error messages into
-							semantically coherent clusters. Poster at AmEC 2026.
-						</p>
-					</section>
-
-					<section class="card">
 						<h3>gpu-kernel-lab</h3>
 						<p>
-							A hands-on CUDA optimisation lab: stencil, reduction, softmax and SGEMM kernels are tuned step by
-							step and measured against a roofline model (SGEMM reaching 97% of cuBLAS on an RTX A2000 Laptop GPU).
-							Each step documents the hypothesis, the measurement and &mdash; where it failed &mdash; why.
+							Roofline-driven CUDA kernel optimisation. Four workloads &mdash; 2D stencil, reduction, softmax and
+							SGEMM &mdash; are tuned in documented steps, each measured against the hardware ceiling it is
+							bound by (SGEMM reaches 97% of cuBLAS on an RTX A2000 Laptop GPU). Hypotheses that turned out
+							wrong stay in the code and are labelled as such &mdash; the method is the point, not the final numbers.
 						</p>
 						<a href="https://github.com/aimanelasad/gpu-kernel-lab" target="_blank" rel="noopener">Source on GitHub<span class="sr-only"> (opens in a new tab)</span></a>
+					</section>
+
+					<section class="card">
+						<h3>torch-roofline</h3>
+						<p>
+							What is your PyTorch model actually bound by? A per-operator roofline profiler: it runs a model once,
+							intercepts every operator, records time, FLOPs and bytes moved, and places each op on the measured
+							roofline of your device. Reports memory- vs compute-bound ops, fusion candidates and whether lower
+							precision, torch.compile or bigger batches are the right lever. CUDA, Apple MPS and CPU.
+						</p>
+						<a href="https://github.com/aimanelasad/torch-roofline" target="_blank" rel="noopener">Source on GitHub<span class="sr-only"> (opens in a new tab)</span></a>
 					</section>
 				</div>
 			</article>
