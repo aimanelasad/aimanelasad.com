@@ -165,8 +165,8 @@ body:not(.is-preload) #bg { transform: scale(1); }
 }
 
 #header .logo {
-	width: 6rem;
-	height: 6rem;
+	width: 10rem;
+	height: 10rem;
 	border: 1px solid var(--line);
 	border-radius: 50%;
 	overflow: hidden;
@@ -347,6 +347,15 @@ body.is-article-visible #header { opacity: 0; transform: scale(0.95); pointer-ev
 
 /* ---------- Content blocks --------------------------------------------- */
 
+/* full-width image inside an article (e.g. About me) */
+.image.main {
+	display: block;
+	margin: 0 0 2rem;
+	border-radius: 4px;
+	overflow: hidden;
+}
+.image.main img { width: 100%; height: auto; display: block; }
+
 /* CV timeline: one entry per list item */
 .timeline {
 	list-style: none;
@@ -478,6 +487,7 @@ body.is-article-visible #footer { opacity: 0; pointer-events: none; transition-d
 	#header .content .inner { padding: 2.5rem 1rem; }
 	#header h1 { font-size: 1.75rem; letter-spacing: 0.35rem; }
 	#header .content { margin-top: 2.5rem; }
+	#header .logo { width: 8rem; height: 8rem; }
 	#main article { padding: 3.5rem 1.5rem 0.5rem; }
 	#main article h2.major { font-size: 1.25rem; letter-spacing: 0.35rem; }
 	.skills, ul.contact-list li { grid-template-columns: 1fr; row-gap: 0.25rem; }
