@@ -443,11 +443,12 @@ body.is-article-visible #header { opacity: 0; transform: scale(0.95); pointer-ev
 		animation: atom-orbit linear infinite;
 	}
 	.atom .e1 { offset-distance: 12%; animation-duration: 16s; animation-delay: -2s; }
-	.atom .e2 { offset-distance: 45%; animation-duration: 22s; animation-delay: -10s; }
+	.atom .e2 { offset-distance: 45%; animation-duration: 22s; animation-delay: -10s; animation-name: atom-orbit-rev; }
 	.atom .e3 { offset-distance: 78%; animation-duration: 27s; animation-delay: -21s; }
 	@media (prefers-reduced-motion: reduce) { .atom .electron { animation: none; } }
 }
 @keyframes atom-orbit { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+@keyframes atom-orbit-rev { from { offset-distance: 100%; } to { offset-distance: 0%; } }
 
 .atom .electron { cursor: grab; outline: none; touch-action: none; }
 .atom .electron:active { cursor: grabbing; }

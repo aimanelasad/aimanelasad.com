@@ -69,21 +69,31 @@
 
 	electrons.forEach(function (g, idx) {
 		var key = 'e' + (idx + 1);
-		var baseRate = idx === 1 ? -1 : 1;   // middle electron orbits the other way
+		var baseRate = 1;
+		// the middle electron uses reversed keyframes (atom-orbit-rev), so all three
+		// run FORWARD forever — a permanently negative playbackRate would eventually
+		// hit the animation's start and freeze
+		var invert = idx === 1;
 		var anim = null, decayRaf = null;
+
+		// keep plenty of backward runway for scrubbing/flicks against the direction
+		function normalize(a) {
+			var t = a.effect.getTiming();
+			var f = ((Number(a.currentTime) - t.delay) / t.duration) % 1;
+			if (f < 0) f += 1;
+			a.currentTime = t.delay + (200 + f) * t.duration;
+		}
 
 		function getAnim() {
 			if (anim) return anim;
 			if (!g.getAnimations) return null;
 			var as = g.getAnimations();
 			for (var i = 0; i < as.length; i++) {
-				if (as[i].animationName === 'atom-orbit') { anim = as[i]; break; }
+				if (as[i].animationName === 'atom-orbit' || as[i].animationName === 'atom-orbit-rev') { anim = as[i]; break; }
 			}
-			if (anim && baseRate < 0 && anim.playbackRate > 0) anim.playbackRate = baseRate;
+			if (anim) normalize(anim);
 			return anim;
 		}
-		// establish the reversed direction once the animation exists (CSS animations
-		// with a negative delay can appear in getAnimations() a moment late)
 		[0, 300, 1200].forEach(function (ms) { window.setTimeout(getAnim, ms); });
 
 		/* ---- description show/hide ---- */
@@ -116,6 +126,7 @@
 			if (!a) return;
 			dragging = true;
 			if (decayRaf) { window.cancelAnimationFrame(decayRaf); decayRaf = null; }
+			normalize(a);
 			a.playbackRate = 0;
 			lastF = fracFromPointer(evt, ROTS[idx]);
 			lastT = evt.timeStamp;
@@ -131,7 +142,7 @@
 			var d = wrap(f - lastF);
 			if (Math.abs(d) > 0.001) moved = true;
 			var timing = a.effect.getTiming();
-			a.currentTime = Number(a.currentTime) + d * timing.duration;
+			a.currentTime = Number(a.currentTime) + (invert ? -d : d) * timing.duration;
 			var dt = Math.max(8, evt.timeStamp - lastT) / 1000;
 			vel = 0.7 * vel + 0.3 * (d / dt);          // fractions per second, smoothed
 			lastF = f; lastT = evt.timeStamp;
@@ -152,7 +163,7 @@
 				return;
 			}
 			var timing = a.effect.getTiming();
-			var rate = vel * timing.duration / 1000;   // 1 = one revolution per duration
+			var rate = (invert ? -vel : vel) * timing.duration / 1000;   // 1 = one revolution per duration
 			var max = 14;
 			if (rate > max) rate = max;
 			if (rate < -max) rate = -max;
