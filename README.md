@@ -8,6 +8,7 @@ index.html            Inhalt aller Sektionen (About, CV, Publications, Projects,
 assets/css/main.css   Design (angelehnt an HTML5 UP „Dimension“, komplett selbst geschrieben)
 assets/js/main.js     Ein-/Ausblenden der Sektionen, Hash-Routing (#cv, #publications, …)
 assets/js/bits.js     Hintergrund-Animation: langsam treibende Einsen und Nullen (Canvas)
+assets/js/atom.js     Atom auf der Startseite: Beschreibungen + Elektronen greifen/anschnipsen
 assets/fonts/         Schrift „Source Sans 3“ (OFL-Lizenz), selbst gehostet – kein Google-Fonts-Aufruf
 images/profile.jpg    Rundes Profilbild (480×480)
 favicon.svg           Browser-Tab-Icon („AE“)

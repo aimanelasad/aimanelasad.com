@@ -443,11 +443,38 @@ body.is-article-visible #header { opacity: 0; transform: scale(0.95); pointer-ev
 		animation: atom-orbit linear infinite;
 	}
 	.atom .e1 { offset-distance: 12%; animation-duration: 16s; animation-delay: -2s; }
-	.atom .e2 { offset-distance: 45%; animation-duration: 22s; animation-delay: -10s; animation-direction: reverse; }
+	.atom .e2 { offset-distance: 45%; animation-duration: 22s; animation-delay: -10s; }
 	.atom .e3 { offset-distance: 78%; animation-duration: 27s; animation-delay: -21s; }
 	@media (prefers-reduced-motion: reduce) { .atom .electron { animation: none; } }
 }
 @keyframes atom-orbit { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+
+.atom .electron { cursor: grab; outline: none; touch-action: none; }
+.atom .electron:active { cursor: grabbing; }
+.atom .electron:hover circle:not(.hit), .atom .electron:focus-visible circle:not(.hit) { r: 7; }
+.atom .electron:focus-visible circle:not(.hit) { stroke: rgba(255, 255, 255, 0.6); stroke-width: 2; }
+.atom .electron circle:not(.hit) { transition: r var(--dur) var(--ease); }
+
+/* short description below the atom */
+.atom-info { position: relative; height: 3.6rem; margin-top: 0.25rem; }
+.atom-info p {
+	position: absolute;
+	inset: 0;
+	margin: 0 auto;
+	max-width: 24rem;
+	text-align: center;
+	font-size: 0.92rem;
+	line-height: 1.45;
+	color: var(--fg-dim);
+	opacity: 0;
+	transform: translateY(5px) scale(0.98);
+	transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+	pointer-events: none;
+}
+.atom-info b { color: var(--fg); font-weight: 600; }
+.atom.show-e1 .atom-info p[data-e="e1"],
+.atom.show-e2 .atom-info p[data-e="e2"],
+.atom.show-e3 .atom-info p[data-e="e3"] { opacity: 1; transform: none; }
 
 /* quotation */
 blockquote {

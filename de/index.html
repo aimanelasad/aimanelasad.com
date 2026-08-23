@@ -71,10 +71,15 @@
 							</g>
 							<circle cx="230" cy="180" r="36" fill="rgba(138,184,255,0.12)" stroke="rgba(138,184,255,0.55)" stroke-width="1"/>
 							<text x="230" y="181" text-anchor="middle" dominant-baseline="central" font-size="26" font-weight="700" fill="#ffffff">AI</text>
-							<g transform="rotate(0 230 180)"><g class="electron e1" transform="translate(77 161.9)"><circle r="5" fill="#8ab8ff"/><text x="0" y="22" text-anchor="middle" font-size="15" font-weight="500" fill="rgba(255,255,255,0.85)">Researcher</text></g></g>
-							<g transform="rotate(60 230 180)"><g class="electron e2" transform="translate(390 180)"><circle r="5" fill="#8ab8ff"/><text x="0" y="22" text-anchor="middle" font-size="15" font-weight="500" fill="rgba(255,255,255,0.85)" transform="rotate(-60)">Engineer</text></g></g>
-							<g transform="rotate(120 230 180)"><g class="electron e3" transform="translate(120 210)"><circle r="5" fill="#8ab8ff"/><text x="0" y="22" text-anchor="middle" font-size="15" font-weight="500" fill="rgba(255,255,255,0.85)" transform="rotate(-120)">Heterodox thinker</text></g></g>
+							<g transform="rotate(0 230 180)"><g class="electron e1" transform="translate(77 161.9)" tabindex="0" role="img" aria-label="Researcher: Geht Problemen auf den Grund und prüft die Antwort, bis sie trägt - begutachtete Arbeiten zu LLMs und Produktionsdaten."><circle class="hit" r="26" fill="transparent"/><circle r="5" fill="#8ab8ff"/><text x="0" y="22" text-anchor="middle" font-size="15" font-weight="500" fill="rgba(255,255,255,0.85)">Researcher</text></g></g>
+							<g transform="rotate(60 230 180)"><g class="electron e2" transform="translate(390 180)" tabindex="0" role="img" aria-label="Engineer: Baut es wirklich: Datenpipelines, CUDA-Kernel und agentische Systeme - gemessen statt angenommen."><circle class="hit" r="26" fill="transparent"/><circle r="5" fill="#8ab8ff"/><text x="0" y="22" text-anchor="middle" font-size="15" font-weight="500" fill="rgba(255,255,255,0.85)" transform="rotate(-60)">Engineer</text></g></g>
+							<g transform="rotate(120 230 180)"><g class="electron e3" transform="translate(120 210)" tabindex="0" role="img" aria-label="Heterodox thinker: Hinterfragt den Lehrbuchweg, probiert den unkonventionellen - und dokumentiert in beiden Fällen, warum."><circle class="hit" r="26" fill="transparent"/><circle r="5" fill="#8ab8ff"/><text x="0" y="22" text-anchor="middle" font-size="15" font-weight="500" fill="rgba(255,255,255,0.85)" transform="rotate(-120)">Heterodox thinker</text></g></g>
 						</svg>
+						<div class="atom-info" aria-hidden="true">
+							<p data-e="e1"><b>Researcher.</b> Geht Problemen auf den Grund und prüft die Antwort, bis sie trägt &mdash; begutachtete Arbeiten zu LLMs und Produktionsdaten.</p>
+							<p data-e="e2"><b>Engineer.</b> Baut es wirklich: Datenpipelines, CUDA-Kernel und agentische Systeme &mdash; gemessen statt angenommen.</p>
+							<p data-e="e3"><b>Heterodox thinker.</b> Hinterfragt den Lehrbuchweg, probiert den unkonventionellen &mdash; und dokumentiert in beiden Fällen, warum.</p>
+						</div>
 					</figure>
 				</div>
 			</div>
@@ -479,6 +484,7 @@
 	<div id="bg" aria-hidden="true"><canvas id="bits"></canvas></div>
 
 	<script src="/assets/js/main.js"></script>
+	<script src="/assets/js/atom.js" defer></script>
 	<script src="/assets/js/bits.js" defer></script>
 </body>
 </html>
