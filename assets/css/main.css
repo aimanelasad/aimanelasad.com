@@ -303,7 +303,7 @@ body:not(.is-preload) #bg { transform: scale(1); }
 }
 
 #header .content .inner {
-	padding: 1.5rem 2rem;
+	padding: 1.25rem 2rem 0.5rem;
 	max-width: 100%;
 	transition: opacity 0.75s var(--ease) 0.25s, transform 0.75s var(--ease) 0.25s;
 }
@@ -426,18 +426,28 @@ body.is-article-visible #header { opacity: 0; transform: scale(0.95); pointer-ev
 
 /* ---------- Content blocks --------------------------------------------- */
 
-/* AI atom (About me) */
+/* AI atom (landing, below the name) */
 .atom {
-	margin: 0 auto 2.5rem;
-	max-width: 26rem;
+	margin: 0 auto;
+	max-width: 21rem;
 }
 .atom svg { width: 100%; height: auto; display: block; }
-.atom .atom-orbits {
-	transform-origin: 230px 180px;
-	animation: atom-spin 90s linear infinite;
+
+/* electrons orbit along their ellipse (falls back to static dots where
+   offset-path is unsupported; static under prefers-reduced-motion) */
+@supports (offset-path: path('M 0 0 H 1')) {
+	.atom .electron {
+		transform: none;
+		offset-path: path('M 390 180 A 160 62 0 1 1 70 180 A 160 62 0 1 1 390 180');
+		offset-rotate: 0deg;
+		animation: atom-orbit linear infinite;
+	}
+	.atom .e1 { offset-distance: 12%; animation-duration: 16s; animation-delay: -2s; }
+	.atom .e2 { offset-distance: 45%; animation-duration: 22s; animation-delay: -10s; animation-direction: reverse; }
+	.atom .e3 { offset-distance: 78%; animation-duration: 27s; animation-delay: -21s; }
+	@media (prefers-reduced-motion: reduce) { .atom .electron { animation: none; } }
 }
-@keyframes atom-spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .atom .atom-orbits { animation: none; } }
+@keyframes atom-orbit { from { offset-distance: 0%; } to { offset-distance: 100%; } }
 
 /* quotation */
 blockquote {

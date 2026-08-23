@@ -62,7 +62,23 @@
 			<div class="content">
 				<div class="inner">
 					<h1>Dr. Aiman El&nbsp;Asad</h1>
-					<p>AI Researcher &middot; AI Engineer</p>
+					<figure class="atom" aria-label="AI im Kern, umkreist von Researcher, Engineer und Heterodox thinker">
+						<svg viewBox="0 0 460 360" role="img">
+							<g class="atom-orbits" stroke="rgba(255,255,255,0.18)" fill="none" stroke-width="1">
+								<ellipse cx="230" cy="180" rx="160" ry="62"/>
+								<ellipse cx="230" cy="180" rx="160" ry="62" transform="rotate(60 230 180)"/>
+								<ellipse cx="230" cy="180" rx="160" ry="62" transform="rotate(120 230 180)"/>
+							</g>
+							<circle cx="230" cy="180" r="36" fill="rgba(138,184,255,0.12)" stroke="rgba(138,184,255,0.55)" stroke-width="1"/>
+							<text x="230" y="181" text-anchor="middle" dominant-baseline="central" font-size="26" font-weight="700" fill="#ffffff">AI</text>
+							<g transform="rotate(0 230 180)"><g class="electron e1" transform="translate(77 161.9)"><circle r="5" fill="#8ab8ff"/></g></g>
+							<g transform="rotate(60 230 180)"><g class="electron e2" transform="translate(390 180)"><circle r="5" fill="#8ab8ff"/></g></g>
+							<g transform="rotate(120 230 180)"><g class="electron e3" transform="translate(120 210)"><circle r="5" fill="#8ab8ff"/></g></g>
+							<text x="70" y="130" text-anchor="start" font-size="17" font-weight="500" fill="rgba(255,255,255,0.85)">Researcher</text>
+							<text x="345" y="322" text-anchor="middle" font-size="17" font-weight="500" fill="rgba(255,255,255,0.85)">Engineer</text>
+							<text x="288" y="30" text-anchor="start" font-size="17" font-weight="500" fill="rgba(255,255,255,0.85)">Heterodox thinker</text>
+						</svg>
+					</figure>
 				</div>
 			</div>
 		</header>
@@ -82,30 +98,6 @@
 					zu der Frage promoviert habe, wie sich Fahrzeug-Software-Updates auf die Produktion auswirken.
 					Die Fakten stehen im <a href="#cv">Lebenslauf</a> &mdash; hier geht es darum, was mich antreibt.
 				</p>
-
-				<figure class="atom" aria-label="Atom-Diagramm: AI im Kern, umkreist von Researcher, Engineer und Heterodox thinker">
-					<svg viewBox="0 0 460 360" role="img">
-						<g class="atom-orbits" stroke="rgba(255,255,255,0.18)" fill="none" stroke-width="1">
-							<ellipse cx="230" cy="180" rx="160" ry="62"/>
-							<ellipse cx="230" cy="180" rx="160" ry="62" transform="rotate(60 230 180)"/>
-							<ellipse cx="230" cy="180" rx="160" ry="62" transform="rotate(120 230 180)"/>
-						</g>
-						<circle cx="230" cy="180" r="36" fill="rgba(138,184,255,0.12)" stroke="rgba(138,184,255,0.55)" stroke-width="1"/>
-						<text x="230" y="181" text-anchor="middle" dominant-baseline="central" font-size="26" font-weight="700" fill="#ffffff">AI</text>
-						<g class="atom-electron">
-							<circle cx="77" cy="161.9" r="5" fill="#8ab8ff"/>
-							<text x="70" y="143" text-anchor="start" font-size="16" font-weight="500" fill="rgba(255,255,255,0.85)">Researcher</text>
-						</g>
-						<g class="atom-electron">
-							<circle cx="324.3" cy="296.9" r="5" fill="#8ab8ff"/>
-							<text x="334" y="322" text-anchor="middle" font-size="16" font-weight="500" fill="rgba(255,255,255,0.85)">Engineer</text>
-						</g>
-						<g class="atom-electron">
-							<circle cx="275.4" cy="43.1" r="5" fill="#8ab8ff"/>
-							<text x="288" y="30" text-anchor="start" font-size="16" font-weight="500" fill="rgba(255,255,255,0.85)">Heterodox thinker</text>
-						</g>
-					</svg>
-				</figure>
 
 				<h3>Neugier</h3>
 				<p>
@@ -376,6 +368,36 @@
 							Hebel sind. CUDA, Apple MPS und CPU.
 						</p>
 						<a href="https://github.com/aimanelasad/torch-roofline" target="_blank" rel="noopener">Quellcode auf GitHub<span class="sr-only"> (öffnet in neuem Tab)</span></a>
+					</section>
+
+					<section class="card">
+						<a class="card-image" href="https://github.com/aimanelasad/mt-post-training-lab" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+							<img src="/images/project-mt-lab.jpg" alt="" width="900" height="540" loading="lazy">
+						</a>
+						<h3>mt-post-training-lab</h3>
+						<p>
+							LLM-Post-Training für maschinelle Übersetzung, Ende-zu-Ende auf einer Laptop-GPU: Baseline,
+							Datenkuratierung, LoRA-SFT, COMET-bewertete Präferenzpaare, DPO und ein signifikanzgeprüftes Release
+							(Paired Bootstrap auf dem vollen WMT22-de&rarr;en-Testset). +3,1 BLEU und +1,3 COMET gegenüber
+							Zero-Shot &mdash; und die Stufen, die nichts gebracht haben, sind genauso sorgfältig dokumentiert
+							wie die, die funktioniert haben.
+						</p>
+						<a href="https://github.com/aimanelasad/mt-post-training-lab" target="_blank" rel="noopener">Quellcode auf GitHub<span class="sr-only"> (öffnet in neuem Tab)</span></a>
+					</section>
+
+					<section class="card">
+						<a class="card-image" href="https://github.com/aimanelasad/sph-fountain" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+							<img src="/images/project-sph-fountain.jpg" alt="" width="900" height="675" loading="lazy">
+						</a>
+						<h3>sph-fountain</h3>
+						<p>
+							Ein Gartenspringbrunnen als echte Fluidsimulation: 2D-Smoothed-Particle-Hydrodynamics in C++17/OpenMP,
+							das Wasser wird im geschlossenen Kreislauf aus dem Becken zurück zur Düse gepumpt. Validiert gegen die
+							analytische hydrostatische Lösung &mdash; die unter anderem einen Faktor-2-Fehler in der
+							Druckgradienten-Form aufgedeckt hat, die gängige Demos kopieren. Ohne Abhängigkeiten: ein Header
+							Physik, eine main.cpp.
+						</p>
+						<a href="https://github.com/aimanelasad/sph-fountain" target="_blank" rel="noopener">Quellcode auf GitHub<span class="sr-only"> (öffnet in neuem Tab)</span></a>
 					</section>
 				</div>
 			</article>
