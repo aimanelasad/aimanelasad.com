@@ -426,6 +426,19 @@ body.is-article-visible #header { opacity: 0; transform: scale(0.95); pointer-ev
 
 /* ---------- Content blocks --------------------------------------------- */
 
+/* AI atom (About me) */
+.atom {
+	margin: 0 auto 2.5rem;
+	max-width: 26rem;
+}
+.atom svg { width: 100%; height: auto; display: block; }
+.atom .atom-orbits {
+	transform-origin: 230px 180px;
+	animation: atom-spin 90s linear infinite;
+}
+@keyframes atom-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .atom .atom-orbits { animation: none; } }
+
 /* quotation */
 blockquote {
 	margin: 0 0 2rem;
