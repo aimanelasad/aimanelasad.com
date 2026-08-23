@@ -11,6 +11,9 @@
  *    forward, manual edit) goes through sync(), which moves the view towards
  *    the hash. Changes that arrive while a transition is running are not
  *    dropped — sync() runs again as soon as the transition has finished.
+ *  - Without JavaScript the CSS shows all sections stacked below the header
+ *    (see `html:not(.js)` rules in main.css), so nothing here is load-bearing
+ *    for reading the content.
  */
 (function () {
 	'use strict';
@@ -18,11 +21,13 @@
 	var DURATION = 325; // ms — must match --dur in main.css
 
 	var body = document.body;
+	var wrapper = document.getElementById('wrapper');
 	var header = document.getElementById('header');
 	var footer = document.getElementById('footer');
 	var main = document.getElementById('main');
 	var articles = Array.prototype.slice.call(main.querySelectorAll('article'));
 	var ids = articles.map(function (a) { return a.id; });
+	var baseTitle = document.title;
 
 	var current = null;   // id of the open article, or null
 	var locked = false;   // true while a transition is running
@@ -38,14 +43,19 @@
 		return ids.indexOf(id) !== -1 ? id : null;
 	}
 
+	function titleFor(article) {
+		var h = article.querySelector('h2');
+		return h ? h.textContent.trim() + ' – ' + baseTitle : baseTitle;
+	}
+
 	/* ---- URL helpers ---------------------------------------------------- */
 
-	function open(id) { window.location.hash = '#' + id; }
-
 	function close() {
-		// Remove the fragment without leaving a dangling "#" in the URL.
-		if (window.history.pushState) {
-			window.history.pushState('', document.title, window.location.pathname + window.location.search);
+		// Replace the "#section" entry with the plain URL instead of pushing a new
+		// one, so the Back button does not re-open the article just closed and the
+		// history does not grow with every open/close cycle.
+		if (window.history.replaceState) {
+			window.history.replaceState(null, '', window.location.pathname + window.location.search);
 			sync();
 		} else {
 			window.location.hash = '';
@@ -57,6 +67,11 @@
 	function finish() {
 		locked = false;
 		sync();
+	}
+
+	function focusArticle(article) {
+		article.setAttribute('tabindex', '-1');
+		article.focus({ preventScroll: true });
 	}
 
 	// header → article
@@ -73,9 +88,9 @@
 			reflow(article);
 			article.classList.add('active');
 			current = id;
+			document.title = titleFor(article);
 			window.scrollTo(0, 0);
-			article.setAttribute('tabindex', '-1');
-			article.focus({ preventScroll: true });
+			focusArticle(article);
 			window.setTimeout(finish, initial ? 0 : delay);
 		};
 
@@ -94,9 +109,9 @@
 			reflow(article);
 			article.classList.add('active');
 			current = id;
+			document.title = titleFor(article);
 			window.scrollTo(0, 0);
-			article.setAttribute('tabindex', '-1');
-			article.focus({ preventScroll: true });
+			focusArticle(article);
 			window.setTimeout(finish, delay);
 		}, delay);
 	}
@@ -115,6 +130,11 @@
 			body.classList.remove('is-article-visible');
 			window.scrollTo(0, 0);
 			current = null;
+			document.title = baseTitle;
+			// Return keyboard focus to the nav link of the section just closed
+			// (or to the first nav link for sections without one, e.g. #legal).
+			var link = header.querySelector('nav a[href="#' + article.id + '"]') || header.querySelector('nav a');
+			if (link) link.focus({ preventScroll: true });
 			window.setTimeout(finish, delay);
 		}, delay);
 	}
@@ -132,7 +152,8 @@
 
 	/* ---- wiring --------------------------------------------------------- */
 
-	// Add a close button to every article.
+	// Add a close button to every article — first in DOM order so that it is
+	// the first Tab stop, matching its visual position (top right).
 	articles.forEach(function (article) {
 		var btn = document.createElement('button');
 		btn.type = 'button';
@@ -140,7 +161,7 @@
 		btn.setAttribute('aria-label', 'Close');
 		btn.textContent = 'Close';
 		btn.addEventListener('click', close);
-		article.appendChild(btn);
+		article.insertBefore(btn, article.firstElementChild);
 	});
 
 	// Escape closes the open article.
@@ -148,20 +169,28 @@
 		if (e.key === 'Escape' && targetFromHash() !== null) close();
 	});
 
-	// Clicking on the dim area outside the panel closes it.
-	main.addEventListener('click', function (e) {
-		if (e.target === main && targetFromHash() !== null) close();
+	// Clicking on the dim area outside the panel closes it. Both mousedown and
+	// click must land outside the panel, so that drag-selecting text that ends
+	// outside the panel (click fires on the common ancestor) does not close it.
+	var pressOutside = false;
+	function outsidePanel(target) {
+		var id = targetFromHash();
+		return id !== null && !byId(id).contains(target);
+	}
+	wrapper.addEventListener('mousedown', function (e) { pressOutside = outsidePanel(e.target); });
+	wrapper.addEventListener('click', function (e) {
+		if (pressOutside && outsidePanel(e.target)) close();
+		pressOutside = false;
 	});
 
 	window.addEventListener('hashchange', function () { sync(); });
 	window.addEventListener('popstate', function () { sync(); });
 
-	// Initial state.
+	// Initial state: reconcile immediately (the script sits at the end of
+	// <body>, so the DOM is complete) — deep links must not wait for images
+	// or fonts to finish loading. Only the entrance animation waits for load.
+	sync(true);
 	window.addEventListener('load', function () {
 		window.setTimeout(function () { body.classList.remove('is-preload'); }, 100);
-		sync(true);
 	});
-
-	// Exposed for nav links that want to open programmatically (not required).
-	window.siteOpen = open;
 })();

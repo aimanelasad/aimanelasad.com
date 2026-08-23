@@ -1,0 +1,3 @@
+Source Sans 3 — Copyright 2010-2024 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'.
+Licensed under the SIL Open Font License, Version 1.1: https://openfontlicense.org
+Files in this folder are the variable WOFF2 builds (latin + latin-ext subsets) as distributed via Google Fonts.
