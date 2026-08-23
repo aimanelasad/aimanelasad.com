@@ -7,6 +7,7 @@ ein kleines Skript. Keine Build-Tools, keine Abhängigkeiten, keine Datenbank, k
 index.html            Inhalt aller Sektionen (About, CV, Publications, Projects, Contact, Legal notice)
 assets/css/main.css   Design (angelehnt an HTML5 UP „Dimension“, komplett selbst geschrieben)
 assets/js/main.js     Ein-/Ausblenden der Sektionen, Hash-Routing (#cv, #publications, …)
+assets/js/bits.js     Hintergrund-Animation: langsam treibende Einsen und Nullen (Canvas)
 assets/fonts/         Schrift „Source Sans 3“ (OFL-Lizenz), selbst gehostet – kein Google-Fonts-Aufruf
 images/profile.jpg    Rundes Profilbild (480×480)
 favicon.svg           Browser-Tab-Icon („AE“)
