@@ -9,6 +9,7 @@ assets/css/main.css   Design (angelehnt an HTML5 UP „Dimension“, komplett se
 assets/js/main.js     Ein-/Ausblenden der Sektionen, Hash-Routing (#cv, #publications, …)
 assets/js/bits.js     Hintergrund-Animation: langsam treibende Einsen und Nullen (Canvas)
 assets/js/atom.js     Atom auf der Startseite: Beschreibungen + Elektronen greifen/anschnipsen
+assets/js/count.js    GoatCounter-Zählskript (selbst gehostet); Dashboard: aimanelasad.goatcounter.com
 assets/fonts/         Schrift „Source Sans 3“ (OFL-Lizenz), selbst gehostet – kein Google-Fonts-Aufruf
 images/profile.jpg    Rundes Profilbild (480×480)
 favicon.svg           Browser-Tab-Icon („AE“)
@@ -145,7 +146,8 @@ Nach ca. 1 Minute ist die Änderung online.
 
 - **Impressum:** § 5 DDG gilt nur für geschäftsmäßige Angebote; für eine private, nicht-kommerzielle
   Seite greift aber § 18 Abs. 1 MStV (Name + Anschrift). Steht in `<article id="legal">`.
-- **Datenschutz:** Die Seite setzt keine Cookies, kein Tracking, keine Inhalte von Drittservern;
+- **Datenschutz:** Die Seite setzt keine Cookies und kein Tracking; anonyme Besucherstatistik über
+  GoatCounter (cookielos, keine IP-Speicherung, Dashboard nur mit Login: aimanelasad.goatcounter.com);
   die Schrift wird selbst gehostet (kein Google-Fonts-Aufruf, vgl. LG München I, 20.01.2022, 3 O 17493/20).
   Die Datenschutzhinweise (Hosting bei GitHub, Server-Logs) stehen ebenfalls in `<article id="legal">`.
 
