@@ -63,7 +63,7 @@
 	}
 	// clicking the empty part of the atom releases everything
 	svg.addEventListener('pointerdown', function (evt) {
-		if (evt.target.closest && evt.target.closest('.electron')) return;
+		if (evt.target.closest && (evt.target.closest('.electron') || evt.target.closest('.nucleus'))) return;
 		deactivateOthers(null);
 	});
 
@@ -108,7 +108,39 @@
 			figure.classList.remove('show-' + key);
 			var a = getAnim(); if (a && !dragging && !decayRaf) a.playbackRate = baseRate;
 		}
-		var ctrl = { forceHide: function () { pinned = false; hide(); } };
+		function startDecay(a) {
+			if (decayRaf) { window.cancelAnimationFrame(decayRaf); decayRaf = null; }
+			// safety net: rAF stalls in background tabs — snap to base speed after 5 s
+			window.setTimeout(function () {
+				if (decayRaf) { window.cancelAnimationFrame(decayRaf); decayRaf = null; a.playbackRate = baseRate; }
+			}, 5000);
+			var prev = performance.now();
+			(function decay(now) {
+				var dt = (now - prev) / 1000; prev = now;
+				var r = a.playbackRate;
+				r += (baseRate - r) * Math.min(1, dt / 1.6);
+				if (Math.abs(r - baseRate) < 0.05) {
+					a.playbackRate = baseRate; decayRaf = null; return;
+				}
+				a.playbackRate = r;
+				decayRaf = window.requestAnimationFrame(decay);
+			})(prev);
+		}
+
+		var ctrl = {
+			forceHide: function () { pinned = false; hide(); },
+			// nucleus boost: all electrons race at roughly one revolution per 1.2 s
+			boost: function () {
+				var a = getAnim(); if (!a) return;
+				if (decayRaf) { window.cancelAnimationFrame(decayRaf); decayRaf = null; }
+				normalize(a);
+				a.playbackRate = a.effect.getTiming().duration / 1200;
+			},
+			unboost: function () {
+				var a = getAnim(); if (!a) return;
+				startDecay(a);
+			}
+		};
 		controllers.push(ctrl);
 		g.addEventListener('pointerenter', function () { if (!dragging) show(); });
 		g.addEventListener('pointerleave', function () { hide(); });
@@ -169,20 +201,32 @@
 			if (rate < -max) rate = -max;
 			if (Math.abs(rate) < 0.4) rate = baseRate;
 			a.playbackRate = rate;
-			// ease back to the natural pace
-			var prev = performance.now();
-			(function decay(now) {
-				var dt = (now - prev) / 1000; prev = now;
-				var r = a.playbackRate;
-				r += (baseRate - r) * Math.min(1, dt / 1.6);
-				if (Math.abs(r - baseRate) < 0.05) {
-					a.playbackRate = baseRate; decayRaf = null; return;
-				}
-				a.playbackRate = r;
-				decayRaf = window.requestAnimationFrame(decay);
-			})(prev);
+			startDecay(a);   // ease back to the natural pace
 		}
 		g.addEventListener('pointerup', release);
 		g.addEventListener('pointercancel', release);
 	});
+
+	/* ---- press and hold the nucleus: everything turns red and races ---- */
+	var nucleus = svg.querySelector('.nucleus');
+	if (nucleus) {
+		var boosting = false;
+		nucleus.addEventListener('pointerdown', function (evt) {
+			boosting = true;
+			figure.classList.add('boost');
+			deactivateOthers(null);
+			controllers.forEach(function (c) { c.boost(); });
+			try { nucleus.setPointerCapture(evt.pointerId); } catch (e) {}
+			evt.preventDefault();
+		});
+		function endBoost() {
+			if (!boosting) return;
+			boosting = false;
+			figure.classList.remove('boost');
+			controllers.forEach(function (c) { c.unboost(); });
+		}
+		nucleus.addEventListener('pointerup', endBoost);
+		nucleus.addEventListener('pointercancel', endBoost);
+		nucleus.addEventListener('lostpointercapture', endBoost);
+	}
 })();

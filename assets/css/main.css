@@ -450,11 +450,18 @@ body.is-article-visible #header { opacity: 0; transform: scale(0.95); pointer-ev
 @keyframes atom-orbit { from { offset-distance: 0%; } to { offset-distance: 100%; } }
 @keyframes atom-orbit-rev { from { offset-distance: 100%; } to { offset-distance: 0%; } }
 
+.atom .nucleus { cursor: pointer; touch-action: none; }
+.atom .nucleus circle { transition: stroke 0.2s var(--ease), fill 0.2s var(--ease); }
+.atom.boost .nucleus circle { stroke: rgba(255, 120, 110, 0.85); fill: rgba(255, 95, 86, 0.16); }
+.atom.boost .electron circle:not(.hit) { fill: #ff6259; }
+.atom.boost .electron text { fill: rgba(255, 180, 172, 0.92); }
+.atom .electron text { transition: fill 0.2s var(--ease); }
+
 .atom .electron { cursor: grab; outline: none; touch-action: none; }
 .atom .electron:active { cursor: grabbing; }
 .atom .electron:hover circle:not(.hit), .atom .electron:focus-visible circle:not(.hit) { r: 7; }
 .atom .electron:focus-visible circle:not(.hit) { stroke: rgba(255, 255, 255, 0.6); stroke-width: 2; }
-.atom .electron circle:not(.hit) { transition: r var(--dur) var(--ease); }
+.atom .electron circle:not(.hit) { transition: r var(--dur) var(--ease), fill 0.2s var(--ease); }
 
 /* short description below the atom */
 .atom-info { position: relative; height: 3.6rem; margin-top: 0.25rem; }
