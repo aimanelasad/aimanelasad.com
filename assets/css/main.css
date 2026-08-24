@@ -622,7 +622,10 @@ ul.contact-list li {
 }
 
 ul.contact-list li:last-child { border-bottom: 1px solid var(--line-soft); }
-ul.contact-list .label { font-size: 0.95rem; font-weight: 600; color: var(--fg-dim); align-self: center; }
+ul.contact-list .label { font-size: 0.95rem; font-weight: 600; color: var(--fg-dim); align-self: center; display: flex; align-items: center; gap: 0.6rem; }
+ul.contact-list .icon { display: inline-flex; color: var(--fg-dim); border-bottom: 0; }
+ul.contact-list .icon:hover, ul.contact-list .icon:focus-visible { color: var(--accent); text-decoration: none; }
+ul.contact-list .icon svg { width: 1.15rem; height: 1.15rem; fill: currentColor; display: block; }
 ul.contact-list a { word-break: break-all; justify-self: start; }
 
 /* visually hidden, but read by screen readers */
